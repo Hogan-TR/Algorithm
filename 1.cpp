@@ -1,26 +1,48 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define max(a,b) ((a) > (b) ? (a) : (b))
-#define min(a,b) ((a) < (b) ? (a) : (b))    //宏定义max min函数
-int L, n;
-int x[1000000];
-int minT=0,maxT=0;
+#include <algorithm>
+using namespace std;
+bool binary_search(int x);
+int a[1000000] = {};
+int n,q;
 int main(void)
 {
-    int m;
-    scanf("%d\n%d", &L, &n);
-    for (m = 0; m < n; m++)
+    int i,j,k,h;
+    bool f=false;
+    scanf("%d\n%d", &n,&q);
+    for (i = 0; i < n; i++)
     {
-        scanf("%d", &x[m]);
+        scanf("%d", &a[i]);
     }
-    for (m = 0; m < n; m++)
+    sort(a,a+n);
+    for(j=0;j<n;j++)
     {
-        minT = max(minT, min(x[m], L - x[m]));
+        for(k=0;k<n;k++)
+        {
+            for(h=0;h<n;h++)
+            {
+                if(binary_search(q-a[j]-a[k]-a[h]))
+                f=true;
+            }
+        }
     }
-    for (m = 0; m < n; m++)
-    {
-        maxT = max(maxT, max(x[m], L - x[m]));
-    }
-    printf("minT=%d,maxT=%d", minT, maxT);
+    if(f)puts("Yes");
+    else puts("No");
     system("pause");
+}
+bool binary_search(int x)
+{
+    int l = 0, m, r;
+    r=n;
+    while (r - l >= 1)    //反复操作直到存在范围为空
+    {
+        m = (r + l) / 2;
+        if (a[m] == x)
+            return true;  //找到x
+        else if (a[m] < x)
+            l = m + 1;
+        else
+            r = m;
+    }
+    return false;         //没找到x
 }
