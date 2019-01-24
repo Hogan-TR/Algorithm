@@ -1,29 +1,29 @@
-#include <stdio.h>
-#include <algorithm>
+#include <string>  
+#include <iostream>
 using namespace std;
-int main()
+int main(void)
 {
-    int n,k,i;
-    int a[500000];
-    scanf("%d%d",&n,&k);
-    for(i=1;i<=n;i++)
-    {
-        scanf("%d",&a[i]);
-    }
-    sort(a+1,a+n+1);
-    if(k==0)
-    {
-        if(a[1]<=1) 
-        printf("-1\n");
-        else
-        printf("1\n");
-    }
-    else
-    {
-        if(a[k]!=a[k+1])
-            printf("%d\n",a[k]);
-        else
-            printf("-1\n");
-    }
-    return 0;
+  string a; 
+  int res = 0,zan,n1=0,n0=0,i,p;
+  cin >> a;
+  p=a.length();
+  for(i = 0; i<p; i++){
+    if(res == 0 && a[i] == '2'){
+      res = 1;
+      zan = i;
+      }
+    if(a[i] == '1') n1++;
+    if(res == 0 && a[i] == '0') n0++;
+  }
+  for(i = 0; i<n0; i++){
+      printf("0");
+  }
+  for(i = 0; i<n1; i++){
+      printf("1");
+  }
+  for(i = zan; i<p; i++){
+      if(a[i] == '1') continue;
+      printf("%c",a[i]);
+  }
+  system("pause");
 }
