@@ -1,17 +1,20 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <algorithm>
+using namespace std;
 int main(void)
 {
-    int n,k,a;
-    scanf("%d%d",&n,&k);
-    for( ;k;k--)
+    int n,i,min;
+    int a[100000];
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
     {
-        a=n%10;
-        if(a==0)
-            n/=10;
-        if(a!=0)
-            n-=1;
+        scanf("%d",&a[i]);
     }
-    printf("%d\n",n);
+    sort(a,a+n);
+    if(a[n-2]-a[0]>=a[n-1]-a[1])
+    min=a[n-1]-a[1];
+    else
+    min=a[n-2]-a[0];
+    printf("%d\n",min);
     system("pause");
 }
