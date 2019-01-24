@@ -1,29 +1,34 @@
-#include <string>  
-#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 using namespace std;
-int main(void)
+int main()
 {
-  string a; 
-  int res = 0,zan,n1=0,n0=0,i,p;
-  cin >> a;
-  p=a.length();
-  for(i = 0; i<p; i++){
-    if(res == 0 && a[i] == '2'){
-      res = 1;
-      zan = i;
-      }
-    if(a[i] == '1') n1++;
-    if(res == 0 && a[i] == '0') n0++;
+  long long n, m, x, w;
+  int i;
+  long long a[200020], b[200020];
+  scanf("%lld %lld", &n, &m);
+  w = 1;
+  memset(a, 0, sizeof(a));
+  memset(b, 0, sizeof(b));
+  for (i = 1; i <= n; i++)
+  {
+    scanf("%lld", &x);
+    a[i] = a[i - 1] + x;
   }
-  for(i = 0; i<n0; i++){
-      printf("0");
+  for (i = 0; i < m; i++)
+  {
+    scanf("%lld", &b[i]);
   }
-  for(i = 0; i<n1; i++){
-      printf("1");
+  for (i = 0; i < m; i++)
+  {
+    if (b[i] <= a[w])
+      printf("%lld %lld\n", w, b[i] - a[w - 1]);
+    else
+    {
+      w++;
+      i--;
+    }
   }
-  for(i = zan; i<p; i++){
-      if(a[i] == '1') continue;
-      printf("%c",a[i]);
-  }
-  system("pause");
+  return 0;
 }
