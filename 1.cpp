@@ -8,3 +8,6 @@ int main(void)
 	printf("square_1 5+4 is %d\n",square_1(5+4));
 	return 0;
 }
+
+//square   等价于   （5+4）*（5+4）=81
+//square_1 等价于   5+4*5+4=29
