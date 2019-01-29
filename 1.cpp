@@ -1,9 +1,10 @@
 #include <stdio.h>
-#include <stdlib.h>
-#define toke(n) printf("token"#n"=%d\n",token_##n)  //标记粘贴运算符（##）
-int main(void)
+#define square(x) ((x)*(x))
+#define square_1(x) (x*x)
+        //参数括号很重要
+int main(void)     
 {
-	int token_61=40;
-	toke(61);
-	system("pause");
+	printf("square 5+4 is %d\n",square(5+4));
+	printf("square_1 5+4 is %d\n",square_1(5+4));
+	return 0;
 }
