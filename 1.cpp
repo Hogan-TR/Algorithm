@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-void add(int x,int y,int *pr)
+int *test()
 {
-	*pr=x+y;
+	int i=5,*pi=&i;
+	return pi;
 }
 int main(void)
 {
-	int i=23,j=32,k=0;
-	add(i,j,&k);
-	printf("%d+%d=%d\n",i,j,k);
+	int *pj;
+	pj=test();
+	printf("%d\n",*pj);
 	system("pause");
 }
