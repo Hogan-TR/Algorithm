@@ -2,10 +2,15 @@
 #include <stdlib.h>
 int main(void)
 {
-	int i=3,*p,*q;
-	p=&i;
- 	// *q=i;                           //此赋值方式错误
-	printf("%d %p\n",*p,p);
-	// printf("%d %p\n",*q,q);
+	int a[5],i,*pi;
+	pi=a;   //pi赋值为a,即pi指向了首元素a[0]
+	for(i=0;i<=4;i++)
+	{
+		scanf("%d",pi+i);
+	}
+	for(i=0;i<=4;i++)
+	{
+		printf("%d\t",*(a+i));
+	}
 	system("pause");
 }
