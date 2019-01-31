@@ -1,16 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define N 5
+int a[N]={23,32,25,52,21};
 int main(void)
 {
-	int a[5],i,*pi;
-	pi=a;   //pi赋值为a,即pi指向了首元素a[0]
-	for(i=0;i<=4;i++)
+	int i,j,min,temp,*pi;
+	pi=a;
+	for(i=0;i<N-1;i++)
 	{
-		scanf("%d",pi+i);
+		min=i;
+		for(j=i+1;j<N;j++)
+		{
+			if(*(pi+min)>*(pi+j))  //pi[min]  a[min]  *(a+min)  等价
+			min=j;
+		}
+		temp=pi[i];
+		pi[i]=pi[min];
+		pi[min]=temp;
 	}
-	for(i=0;i<=4;i++)
+	for(i=0;i<N;i++)
 	{
-		printf("%d\t",*(a+i));
+		printf("%3d",*pi++);
 	}
 	system("pause");
 }
+//排序
