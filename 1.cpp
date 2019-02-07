@@ -1,30 +1,32 @@
-#include<iostream>
-#include<algorithm>	//包含了sort()函数
-#include<stdio.h>
+#include <stdio.h>
 using namespace std;
-int a[20005],b[20005];
-int main(){int n,m;
-	while(cin>>n>>m){
-		if(n==0 && m==0) break;
-		for(int i=0;i<n;i++)
-			cin>>a[i];	//C++的输入方式
-		for(int j=0;j<m;j++)
-			cin>>b[j];
-		sort(a,a+n);//sort()函数，第一个参数：起始地址 第二个参数：结束地址 第三个参数：排序方式
-		sort(b,b+m);
-		int cur=0,cost=0;
-		for(int i=0;i<m;i++){
-			if(b[i]>=a[cur]){
-				cost+=b[i];
-				cur++;
-				if(cur==n)	//cur自增后等于n(讲道理cur<n)
+int main(void)
+{
+	int n,check=0;
+	char s[20005];
+	scanf("%d", &n); getchar();
+	for (int i = 0; i < n; i++) {
+		scanf("%c", &s[i]);
+		getchar();
+	}
+	int a = 0, b = n - 1;  //用a，b很巧妙
+	while (a <= b) {
+		//将从左起和从右起的字符串比较
+		bool left = false;
+		for (int i = 0; a + i <= b; i++) {
+			if (s[a + i] < s[b - i]) {
+				left = true;
 				break;
 			}
-		}
-		if(cur<n) //***n<m不对 未考虑面包数大于..但不是所有..
-			printf("Loowater is doomed!\n");
-		else
-			printf("%d\n",cost);
+			else if (s[a + i] > s[b - i]) {
+				left = false;
+				break;
+			}
+		}  //此中用循环__目的__处理前后相同的情况
+		if (check == 80) { printf("\n"); check = 0; }
+		if (left) putchar(s[a++]);	//妙
+		else putchar(s[b--]);
+		check++;
 	}
 	return 0;
 }
