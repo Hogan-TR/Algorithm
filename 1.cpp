@@ -1,38 +1,47 @@
 #include <stdio.h>
-#include <math.h>
 using namespace std;
-int gcd(int x, int y) {//辗转相除法求最大公约数，x>=y;
-	if (x < y) {
-		int tmp = x;
-		x = y;
-		y = tmp;
+int n, m;
+char field[105][105];	//园子
+//现在位置(x,y)
+void dfs(int x, int y)
+{
+	//将现在所在位置替换wei'*'
+	field[x][y] = '*';
+	//循环遍历移动的8个方向
+	for (int dx = -1; dx <= 1; dx++) {
+		for (int dy = -1; dy <= 1; dy++) {
+			//向x方向移动dx，向y方向移动dy，移动的结果为(nx,ny)
+			int nx = x + dx, ny = y + dy;
+			//判断(nx,ny)是否在园子内，以及是否有积水
+			if (0 <= nx && nx < n && 0 <= ny && ny < m && field[nx][ny] == '@')
+				dfs(m = nx, ny);
+		}
 	}
-	if (y == 0)
-		return x;
-	return gcd(y, x % y);
+	return;
 }
 int main(void)
 {
-	int a, b, c, d, _gcd, _lcm, numerator, _a, _c, _gcd1;
-	char o;
-	while (scanf("%d/%d%c%d/%d", &a, &b, &o, &c, &d) != EOF) {
-		_gcd = gcd(b, d);		//最大公约数
-		_lcm = b / _gcd * d;	//两个分母的最小公倍数
-		_a = a * d / _gcd;		//通分后一分子
-		_c = c * b / _gcd;		//通分后一分子
-		if (o == '+')
-			numerator = _a + _c;
-		else
-			numerator = _a - _c;
-		if (numerator == 0)		//若分子值为0.则直接输出
-			printf("%d\n", numerator);
-		else {
-			_gcd1 = gcd(abs(numerator), _lcm);	//最大公约数和分母相同，说明分子和分母相同,最后值为整数
-			if (_gcd1 == _lcm)
-				printf("%d\n", numerator / _gcd1);
-			else
-				printf("%d/%d\n", numerator / _gcd1, _lcm / _gcd1);
+	while (scanf("%d%d", &n, &m)) {
+		if (n == 0 && m == 0)
+			break;
+		getchar();
+		for (int z = 0; z < n; z++) {
+			for (int q = 0; q < m; q++) {
+				scanf("%c", &field[z][q]);
+			}
+			getchar();
 		}
+		int res = 0;
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				if (field[i][j] == '@') {
+					//从有w的地方开始dfs
+					dfs(i, j);
+					res++;
+				}
+			}
+		}
+		printf("%d\n", res);
 	}
 	return 0;
 }
