@@ -1,28 +1,66 @@
-#include <iostream>
-using namespace std;
-int main()
-{
-	int n, a, b, c;
-	int num[105];
-	int t = 0;
-	cin >> n >> a >> b;
-	int ans = 0;
-	for (int i = 0; i < n; i++) {
-		cin >> c;
-		if (c <= a) ans++;
-		else num[t++] = c;
-	}
-	if (a > b) cout << n << endl;
-	else {
-		if (ans % 2 == 1) ans++;
-		cout << ans / 2 << endl;
-	}
-	return 0;
-}
-/*题意：别看题目这么长，其实有用的就几句话，首先给你n个数的一个序列，以及a和b，a表示每次可以使序列中的一个数减去a（直到为0），
-b表示每次对序列中的一个非零数加上b，按顺序减加减加循环下去。然后问序列中有多少为零的数。
-
-思路：一开始想的是博弈。但是其实并没有这么复杂，只需要分两种情况。一种数a大于b，必定会使得所有数都变成0，即输出n
-一种数a小于b，这时我们再输入的时候记录下这个序列中小于等于a的数的个数ans，
-如果这个序列中大于a的数，是不可能被减为0的。然后对于小于等于a的数，我们就根据循环，
-当是减的时候，这个数就变成0了，当是加的时候，这个数就大于a了，即不可能减为0.这里就是ans/2，对于ans是奇数，则因为先手是减，所以奇数加一。*/
+a = int(input())
+s = str(input())
+z = 0
+o = 0
+t = 0
+for i in s:
+    if i == '0':
+        z += 1
+    if i == '1':
+        o += 1
+    if i == '2':
+        t += 1
+num = a // 3
+zn = num - z
+on = num - o
+tn = num - t
+if z == o == t:
+    print(s)
+else:
+    zm = 0
+    om = 0
+    tm = 0
+    s = list(s)
+    for i in range(0, a):
+        if s[i] == '2':
+            if tn < 0:
+                if zn > 0:
+                    s[i] = '0'
+                    zn -= 1
+                    tn += 1
+                else:
+                    s[i] = '1'
+                    on -= 1
+                    tn += 1
+        if s[i] == '1':
+            om += 1
+            if on < 0:
+                if zn > 0:
+                    s[i] = '0'
+                    zn -= 1
+                    on += 1
+                    om -= 1
+                else:
+                    if om <= num:
+                        continue
+                    else:
+                        s[i] = '2'
+                        tn -= 1
+                        on += 1
+        if s[i] == '0':
+            zm += 1
+            if zn < 0:
+                if zm <= num:
+                    continue
+                else:
+                    if on > 0:
+                        on -= 1
+                        s[i] = '1'
+                        zn += 1
+                    else:
+                        s[i] = '2'
+                        tn -= 1
+                        zn += 1
+    s = ''.join(s)
+    print(s)
+//		python 版本
