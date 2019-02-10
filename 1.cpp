@@ -1,32 +1,28 @@
-#include <stdio.h>
-int a[5001], cnt[5001], color[5001];
+#include <iostream>
+using namespace std;
 int main()
 {
-	int n, k, t = 0;
-	scanf("%d%d", &n, &k);
-	for (int i = 1; i <= n; i++) {
-		scanf("%d", &a[i]);
-		cnt[a[i]]++;	//计数——一个数字出现次数
+	int n, a, b, c;
+	int num[105];
+	int t = 0;
+	cin >> n >> a >> b;
+	int ans = 0;
+	for (int i = 0; i < n; i++) {
+		cin >> c;
+		if (c <= a) ans++;
+		else num[t++] = c;
 	}
-	for (int i = 1; i <= 5000; i++) {
-		if (cnt[i] > k) {
-			printf("NO\n");
-			return 0;
-		}
-		else {
-			for (int j = 1; j <= n; j++) {
-				if (a[j] == i)
-				{
-					color[j] = ++t;
-					t %= k;		//超过了颜色数就再次从1开始
-				}
-			}
-		}
-	}
-	printf("YES\n");
-	for (int i = 1; i <= n; i++) {
-		if (i != 1) printf(" ");
-		printf("%d", color[i]);
+	if (a > b) cout << n << endl;
+	else {
+		if (ans % 2 == 1) ans++;
+		cout << ans / 2 << endl;
 	}
 	return 0;
 }
+/*题意：别看题目这么长，其实有用的就几句话，首先给你n个数的一个序列，以及a和b，a表示每次可以使序列中的一个数减去a（直到为0），
+b表示每次对序列中的一个非零数加上b，按顺序减加减加循环下去。然后问序列中有多少为零的数。
+
+思路：一开始想的是博弈。但是其实并没有这么复杂，只需要分两种情况。一种数a大于b，必定会使得所有数都变成0，即输出n
+一种数a小于b，这时我们再输入的时候记录下这个序列中小于等于a的数的个数ans，
+如果这个序列中大于a的数，是不可能被减为0的。然后对于小于等于a的数，我们就根据循环，
+当是减的时候，这个数就变成0了，当是加的时候，这个数就大于a了，即不可能减为0.这里就是ans/2，对于ans是奇数，则因为先手是减，所以奇数加一。*/
