@@ -1,15 +1,24 @@
-#include <stdio.h>
+#include<stdio.h>
+#include<math.h>
 using namespace std;
 int main()
 {
-   int n;
-   double A, v;
-   n = A / v;
-   if (n * v < A)
-   {
-      n++;
-   }
-   return 0;
+	int n;
+	bool m = false;
+	scanf("%d", &n);
+	if (n % 3 == 0) {
+		printf("3 ");
+		m = true;
+	}
+	if (n % 5 == 0) {
+		printf("5 ");
+		m = true;
+	}
+	if (n % 7 == 0) {
+		printf("7 ");
+		m = true;
+	}
+	if (!m)
+		printf("n");
+	return 0;
 }
-
-//功能：实际问题中的至少问题——取整
