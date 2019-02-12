@@ -1,26 +1,40 @@
 #include<stdio.h>
-#include<math.h>
 using namespace std;
 int main()
 {
-	double a, b, c;
-	scanf("%lf%lf%lf", &a, &b, &c);
-	double dec = b * b - 4 * a * c;
-	if (dec == 0) {
-		printf("x1=x2=%.5f", (-b + sqrt(b * b - 4 * a * c)) / (2 * a));
-	}
-	else if (dec > 0) {
-		double x1 = (-b + sqrt(b * b - 4 * a * c)) / (2 * a), x2 = (-b - sqrt(b * b - 4 * a * c)) / (2 * a);
-		double temp;
-		if (x1 < x2) {
-			temp = x1;
-			x1 = x2;
-			x2 = temp;
+	for (int i = 49; i <= 819; i++) {
+		int res1 = 0, res2 = 0;
+		int u, t;
+		int a[3], b[3];
+		u = t = i;
+		for(int r = 0; r < 3; r++) {		//十进制转七进制
+			int temp;
+			temp = u % 7;
+			u /= 7;
+			a[r] = temp;
 		}
-		printf("x1=%.5f;x2=%.5f", x1, x2);
-	}
-	else {									        //这正下方有点坑
-		printf("x1=%.5f+%.5fi;x2=%.5f-%.5fi", 0-b / (2 * a), sqrt(4 * a * c - b * b) / (2 * a), 0-b / (2 * a), sqrt(4 * a * c - b * b) / (2 * a));
+		for (int r = 0; r < 3; r++) {		//十转九
+			int temp;
+			temp = t % 9;
+			t /= 9;
+			b[r] = temp;
+		}
+		if (a[0] == b[2] && a[2] == b[0])
+		{
+			printf("%d\n", i);
+			for (int y = 0; y < 3; y++) {
+				printf("%d", b[y]);
+			}
+			printf("\n");
+			for (int y = 0; y < 3; y++) {
+				printf("%d", a[y]);
+			}
+			printf("\n");
+		}
 	}
 	return 0;
 }
+
+
+/*一个十进制自然数,它的七进制与九进制表示都是三位数，且七进制与九进制的三位数码表示顺序正好相反。编程求此自然数,并输出显示*/
+/*十进制转其他进制：除以其他，取余数，倒置*/
