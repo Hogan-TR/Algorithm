@@ -1,30 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
-using namespace std;
-int main()
-// {
-// 	int a[] = {5, 15, 34, 54, 14, 2, 52, 72};
-// 	int *p = &a[5];
-// 	printf("%d",p[-2]);
-// 	system("pause");
-// }
-
-// {
-// 	int a[] = {0};
-// 	int *p = a;
-// 	// if(p == a[0])
-// 	// printf("1");
-// 	if(p == &a[0])
-// 	printf("2");
-// 	if(*p == a[0])
-// 	printf("3");
-// 	if(p[0] == a[0])
-// 	printf("4");
-// 	system("pause");
-// }
+int main(void)
 {
-	int a[] = {5, 15, 34, 54, 14, 2, 52, 72};
-	int *p = &a[1];
-	printf("%d",p[2]);
+	int i=0;
+	char *s="Hello World";
+	// s[0]='B';
+	char *s2="Hello World";
+	char s3[]="Hello World";
+
+	printf("&i=%p\n",&i);
+	printf(" s=%p\n",s);
+	printf("s2=%p\n",s2);
+	printf("s3=%p\n",s3);
+	s3[0]='B';
+
+	printf("Here!s3[0]=%s\n",s3);
 	system("pause");
 }
