@@ -3,9 +3,9 @@
 int main(void)
 {
 	int i=0;
-	char *s="Hello World";
+	const char *s="Hello World";		//建议加上 const
 	// s[0]='B';
-	char *s2="Hello World";
+	const char *s2="Hello World";
 	char s3[]="Hello World";
 
 	printf("&i=%p\n",&i);
