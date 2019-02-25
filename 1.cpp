@@ -1,19 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
-int main(void)
+#include <string.h>
+int main()
 {
-	int i=0;
-	const char *s="Hello World";		//建议加上 const
-	//s[0]='B';							//只可读，不可写
-	const char *s2="Hello World";
-	char s3[]="Hello World";
+	char test[]="abcde";
+	char comp[]="Abcde ";
 
-	printf("&i=%p\n",&i);
-	printf(" s=%p\n",s);
-	printf("s2=%p\n",s2);
-	printf("s3=%p\n",s3);
-	s3[0]='B';
+	printf("strlen=%lu\n",strlen(test));
+	printf("sizeof=%lu\n",sizeof(test));
 
-	printf("Here!s3[0]=%s\n",s3);
+	printf("strcompare=%d\n",strcmp(test,comp));
+
+	printf("strcp=%s#\n",strcpy(test,comp));
 	system("pause");
 }
