@@ -4,7 +4,7 @@ int main(void)
 {
 	int i=0;
 	const char *s="Hello World";		//建议加上 const
-	// s[0]='B';
+	//s[0]='B';							//只可读，不可写
 	const char *s2="Hello World";
 	char s3[]="Hello World";
 
