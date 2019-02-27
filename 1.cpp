@@ -1,16 +1,12 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 int main()
 {
-	char test[]="abcde";
-	char comp[]="Abcde ";
-
-	printf("strlen=%lu\n",strlen(test));
-	printf("sizeof=%lu\n",sizeof(test));
-
-	printf("strcompare=%d\n",strcmp(test,comp));
-
-	printf("strcp=%s#\n",strcpy(test,comp));
-	system("pause");
+	int n,i;
+	char key[55];
+	scanf("%d %s",&n,key);
+	for(i=0;key[i]!='\0';i++){
+		key[i]=(key[i]-'a'+n)%26+'a';		//超过z，回到a
+	}
+	printf("%s\n",key);
+	return 0;
 }
