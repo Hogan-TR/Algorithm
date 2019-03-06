@@ -1,55 +1,25 @@
-#include <stdio.h>
-#define N 5
-int fu1(int a[]);//尾巴减小(向前缩)
-int fu2(int a[]);//头部减小(向后缩)
-int output(int a[]);
+#include <iostream>
+#define N 2000
+using namespace std;
 int main()
 {
-    int i, a[N];
-    for (i = 0; i < N; i++)
+    int n, t, a[N];
+    cin >> n;
+    //全部数组元素初始化为0
+    for (int i = 1; i <= N - 1; i++)
     {
-        scanf("%d", &a[i]);
+        a[i] = 0;
     }
-    fu1(a);
-    putchar('\n');
-    fu2(a);
+    //输入
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> t;
+        a[t]++;
+    }
+    //输出
+    //---注意：i < N 且输入比较的最大数要小于N
+    for (int i = 1; i < N; i++)
+        for (int j = 1; j <= a[i]; j++)
+            printf("%d ", i);
     return 0;
-}
-int fu1(int a[]) 
-{
-    int i, j, maxindex, temp;   //maxindex为最大值位置标签
-    for (i = 0; i < N - 1; i++) //执行找出最大值的次数
-    {
-        maxindex = 0; //首先初始为第一个(有点东西),不能忘
-        for (j = 1; j < N - i; j++)
-            if (a[maxindex] > a[j]) //如果改为'<'，即求最小值
-                maxindex = j;
-        temp = a[maxindex]; //交换，将最大值放最后面(相对最后)
-        a[maxindex] = a[N - 1 - i];
-        a[N - 1 - i] = temp;
-    }
-    output(a);
-}
-int fu2(int a[])
-{
-    int i, j, minindex, temp;
-    for (i = 0; i < N - 1; i++)
-    {
-        minindex = i;
-        for (j = i; j < N; j++)
-            if (a[minindex] > a[j])
-                minindex = j;
-        temp = a[minindex];
-        a[minindex] = a[i];
-        a[i] = temp;
-    }
-    output(a);
-}
-int output(int a[])
-{
-    int i;
-    for (i = 0; i < N; i++)
-    {
-        printf("%d ", a[i]);
-    }
 }
