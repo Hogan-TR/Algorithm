@@ -1,25 +1,35 @@
 #include <iostream>
-#define N 2000
 using namespace std;
+void pao(int a[], int n);
 int main()
 {
-    int n, t, a[N];
+    int n, a[n];
     cin >> n;
-    //全部数组元素初始化为0
-    for (int i = 1; i <= N - 1; i++)
-    {
-        a[i] = 0;
-    }
-    //输入
     for (int i = 1; i <= n; i++)
     {
-        cin >> t;
-        a[t]++;
+        cin >> a[i];
     }
-    //输出
-    //---注意：i < N 且输入比较的最大数要小于N
-    for (int i = 1; i < N; i++)
-        for (int j = 1; j <= a[i]; j++)
-            printf("%d ", i);
+    pao(a, n);
     return 0;
+}
+void pao(int a[], int n)
+{
+    int temp;
+    // n 个数，则跑 n-1 次
+    for (int i = 1; i <= n - 1; i++)
+    {
+        for (int j = 1; j <= n - i; j++)
+        {
+            if (a[j] > a[j + 1])
+            {
+                temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+            }
+        }
+    }
+    for (int i = 1; i <= n; i++)
+    {
+        printf("%d ", a[i]);
+    }    
 }
