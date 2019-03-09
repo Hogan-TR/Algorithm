@@ -1,50 +1,47 @@
 {
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Compile",
+            // 任务标签名
+            "label": "compile",
+            // 任务类型
+            "type": "shell",
+            // 编译器选择
             "command": "g++",
+            // 编译预执行的命令集
             "args": [
-                "${file}",   //指定编译源代码文件
+                "-g",
+                "\"${file}\"",
                 "-o",
-                "${workspaceRoot}/${fileBasenameNoExtension}.exe", // 指定输出文件名，不加该参数则默认输出a.exe
-                "-ggdb3",   // 生成和调试有关的信息
-                "-Wall",    // 开启额外警告
-                "-static-libgcc",   // 静态链接
-                "-std=c++17",       // 使用c++17标准
-                "-finput-charset=UTF-8", //输入编译器文本编码 默认为UTF-8
-                "-fexec-charset=GBK",   //输出exe文件的编码
-                "-D _USE_MATH_DEFINES"
+                "\"${fileDirname}\\${fileBasenameNoExtension}\""
             ],
-
+            // 任务输出配置
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "focus": false,
+                "echo": true
+            },
+            // 任务所属组名
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            // 编译问题输出匹配配置
             "problemMatcher": {
                 "owner": "cpp",
-                "fileLocation": [
-                    "absolute",
-                ],
+                "fileLocation": "absolute",
                 "pattern": {
-                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(error):\\s+(.*)$",
                     "file": 1,
                     "line": 2,
                     "column": 3,
                     "severity": 4,
                     "message": 5
                 }
-            },
-
-            "type": "shell",
-            
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-
-            "presentation": {
-                "echo": true,
-                "reveal": "always", // 在“终端”中显示编译信息的策略，可以为always，silent，never
-                 "focus": false,
-                 "panel": "shared" // 不同的文件的编译信息共享一个终端面板
-            },
+            }
         }
     ]
 }
