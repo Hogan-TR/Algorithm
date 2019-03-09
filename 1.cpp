@@ -1,60 +1,71 @@
-/*快速排序*/
+/*实战*/
+/*法一：先排序，后去重
+  法二：先去重，后排序*/
 #include <iostream>
+#include <cstdio>
+#define N 1010
 using namespace std;
-void quicksort(int left, int right);
-int n, a[600];
+void tong();
+void biu();
 int main()
 {
+    // tong();
+    biu();
+    return 0;
+}
+// //桶排序
+// void tong()
+// {
+//     int n, t, sum = 0, a[N];
+//     cin >> n;
+//     for (int i = 0; i <= N; i++)
+//     {
+//         a[i] = 0;
+//     }
+//     for (int i = 0; i < n; i++)
+//     {
+//         scanf("%d", &t);
+//         a[t] = 1; //优化
+//     }
+//     cout << sum << endl;
+//     for (int i = 0; i < N; i++)
+//     {
+//         for (int j = 1; j <= a[i]; j++)
+//         {
+//             cout << i;
+//             cout << " ";
+//         }
+//     }
+// }
+void biu()
+{
+    int n, t, a[110], temp;
     cin >> n;
+    t = n;
     for (int i = 1; i <= n; i++)
     {
         cin >> a[i];
     }
-    quicksort(1, n);
-    for (int i = 1; i <= n; i++)
+    for (int i = 1; i < n; i++)
     {
-        cout << a[i];
-        cout << " ";
-    }
-    return 0;
-}
-void quicksort(int left, int right)
-{
-    int i, j, temp, t;
-
-    //快排用递归的出口
-    if (left > right)
-        return;
-
-    //temp为基准数
-    temp = a[left];
-    i = left;
-    j = right;
-
-    //整个while将基准数两端数归位
-    while (i != j)
-    {
-
-        // 顺序很重要，先从右往左找
-        while (a[j] >= temp && i < j)
-            j--;
-        while (a[i] <= temp && i < j)
-            i++;
-
-        //交换两个数在数组中的位置
-        if (i < j) //当i，j未相遇
+        for (int j = 1; j <= n - i; j++)
         {
-            t = a[j];
-            a[j] = a[i];
-            a[i] = t;
+            if (a[j] > a[j + 1])
+            {
+                temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+            }
         }
     }
-
-    //将基准数归位
-    a[left] = a[i];
-    a[i] = temp;
-
-    //递归
-    quicksort(left, i - 1);
-    quicksort(i + 1, right);
+    for (int i = 1; i < n; i++)
+        if (a[i] == a[i + 1])
+            t--;
+    cout << t << endl;
+    printf("%d", a[1]);
+    for (int i = 2; i <= n; i++)
+    {
+        if (a[i - 1] != a[i])
+            printf(" %d", a[i]);
+    }
 }
