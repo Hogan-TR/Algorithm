@@ -1,58 +1,50 @@
-/*实战---续*/
-/*法一：先排序，后去重
-  法二：先去重，后排序*/
+// #include <iostream>
+// int main()
+// {
+//     int a[101] = {0, 6, 3, 1, 7, 5, 8, 9, 2, 4};
+//     int head = 1, tail = 10;
+//     while (head < tail)
+//     {
+//         printf("%d", a[head]);
+//         head++;
+//         a[tail] = a[head];
+//         tail++;
+//         head++;
+//     }
+//     return 0;
+// }
+
 #include <iostream>
-#include <cstdio>
-#define N 1010
 using namespace std;
-int n, a[N];
-void quick(int left, int right);
+//放 int main 函数外
+struct queue
+{
+    int data[101];
+    int head; //队首
+    int tail; //队尾
+};
 int main()
 {
-    cin >> n;
-    int t = n;
-    for (int i = 1; i <= n; i++)
+    struct queue am; //定义
+    am.head = 1;     //初始化
+    am.tail = 1;
+    for (int i = 1; i <= 9; i++)
     {
-        cin >> a[i];
+        scanf("%d", &am.data[am.tail]);
+        am.tail++;
     }
-    quick(1, n);
-    for (int i = 1; i <= n; i++)
-        if (a[i] == a[i + 1])
-            t--;
-    cout << t << endl;
-    printf("%d", a[1]);
-    for (int i = 2; i <= n; i++)
+    while (am.head < am.tail) //当队列不为空的时候执行循环
     {
-        if (a[i - 1] != a[i])
-            printf(" %d", a[i]);
+        //打印队首并将队首出队
+        cout << am.data[am.head];
+        am.head++;
+        //先将新队首的数添加到队尾
+        am.data[am.tail] = am.data[am.head];
+        am.tail++;
+        //再将队首出队
+        am.head++;
     }
     return 0;
 }
-void quick(int left, int right)
-{
-    int temp = a[left], t;
-    int i = left;
-    int j = right;
-    if (i > j)
-        return;
-    while (i != j)
-    {
-        while (a[j] >= temp && i < j) //注意：是 <= !!!!!!
-            j--;
-        while (a[i] <= temp && i < j)
-            i++;
 
-        if (i < j)
-        {
-            t = a[j];
-            a[j] = a[i];
-            a[i] = t;
-        }
-    }
-
-    a[left] = a[i];
-    a[i] = temp;
-
-    quick(left, i - 1);
-    quick(i + 1, right);
-}
+/*队列*/
