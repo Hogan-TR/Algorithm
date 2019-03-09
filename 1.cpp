@@ -1,64 +1,22 @@
-/*实战*/
+/*实战---续*/
 /*法一：先排序，后去重
   法二：先去重，后排序*/
 #include <iostream>
 #include <cstdio>
 #define N 1010
 using namespace std;
-void tong();
-void biu();
+int n, a[N];
+void quick(int left, int right);
 int main()
 {
-    // tong();
-    biu();
-    return 0;
-}
-// //桶排序
-// void tong()
-// {
-//     int n, t, sum = 0, a[N];
-//     cin >> n;
-//     for (int i = 0; i <= N; i++)
-//     {
-//         a[i] = 0;
-//     }
-//     for (int i = 0; i < n; i++)
-//     {
-//         scanf("%d", &t);
-//         a[t] = 1; //优化
-//     }
-//     cout << sum << endl;
-//     for (int i = 0; i < N; i++)
-//     {
-//         for (int j = 1; j <= a[i]; j++)
-//         {
-//             cout << i;
-//             cout << " ";
-//         }
-//     }
-// }
-void biu()
-{
-    int n, t, a[110], temp;
     cin >> n;
-    t = n;
+    int t = n;
     for (int i = 1; i <= n; i++)
     {
         cin >> a[i];
     }
-    for (int i = 1; i < n; i++)
-    {
-        for (int j = 1; j <= n - i; j++)
-        {
-            if (a[j] > a[j + 1])
-            {
-                temp = a[j];
-                a[j] = a[j + 1];
-                a[j + 1] = temp;
-            }
-        }
-    }
-    for (int i = 1; i < n; i++)
+    quick(1, n);
+    for (int i = 1; i <= n; i++)
         if (a[i] == a[i + 1])
             t--;
     cout << t << endl;
@@ -68,4 +26,33 @@ void biu()
         if (a[i - 1] != a[i])
             printf(" %d", a[i]);
     }
+    return 0;
+}
+void quick(int left, int right)
+{
+    int temp = a[left], t;
+    int i = left;
+    int j = right;
+    if (i > j)
+        return;
+    while (i != j)
+    {
+        while (a[j] >= temp && i < j) //注意：是 <= !!!!!!
+            j--;
+        while (a[i] <= temp && i < j)
+            i++;
+
+        if (i < j)
+        {
+            t = a[j];
+            a[j] = a[i];
+            a[i] = t;
+        }
+    }
+
+    a[left] = a[i];
+    a[i] = temp;
+
+    quick(left, i - 1);
+    quick(i + 1, right);
 }
