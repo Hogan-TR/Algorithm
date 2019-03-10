@@ -1,50 +1,31 @@
-// #include <iostream>
-// int main()
-// {
-//     int a[101] = {0, 6, 3, 1, 7, 5, 8, 9, 2, 4};
-//     int head = 1, tail = 10;
-//     while (head < tail)
-//     {
-//         printf("%d", a[head]);
-//         head++;
-//         a[tail] = a[head];
-//         tail++;
-//         head++;
-//     }
-//     return 0;
-// }
-
 #include <iostream>
+#include <cstring>
 using namespace std;
-//放 int main 函数外
-struct queue
-{
-    int data[101];
-    int head; //队首
-    int tail; //队尾
-};
 int main()
 {
-    struct queue am; //定义
-    am.head = 1;     //初始化
-    am.tail = 1;
-    for (int i = 1; i <= 9; i++)
+    char a[101], s[101]; // a->输入存储数组  s->前半储存数组
+    int len, mid;
+    gets(a);
+    len = strlen(a);
+    mid = len / 2 - 1;             //中点 要 -1
+    int top = 0;                   //初始化 top=0
+    for (int i = 0; i <= mid; i++) //恰好到 mid 止
+        s[++top] = a[i];           //++top
+    if (len % 2 == 0)              //奇偶数情况区分
+        mid += 1;
+    else
+        mid += 2;
+    //开始匹配
+    for (int i = mid; i < len; i++)
     {
-        scanf("%d", &am.data[am.tail]);
-        am.tail++;
+        if (a[i] != s[top])
+            break;
+        top--;
     }
-    while (am.head < am.tail) //当队列不为空的时候执行循环
-    {
-        //打印队首并将队首出队
-        cout << am.data[am.head];
-        am.head++;
-        //先将新队首的数添加到队尾
-        am.data[am.tail] = am.data[am.head];
-        am.tail++;
-        //再将队首出队
-        am.head++;
-    }
+    //如果top的值为0，则说明栈内所有的字符都被一一匹配了
+    if (top == 0)
+        cout << "yes" << endl;
+    else
+        cout << "no" << endl;
     return 0;
 }
-
-/*队列*/
