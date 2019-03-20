@@ -1,41 +1,35 @@
 #include <iostream>
 using namespace std;
+int fun(int x);
 int main()
 {
-    int data[101], right[101];
-    int i, n, t, len;
-    cin >> n;
-    for (i = 1; i <= n; i++)
-        cin >> data[i];
-    len = n;
-    //初始化数组right
-    for (i = 1; i <= n; i++)
+    int a, b, c, m, i, sum = 0, t = 0;
+    scanf("%d", &m);
+    for (a = 0; a <= 1111; a++)
     {
-        if (i != n)
-            right[i] = i + 1;
-        else
-            right[i] = 0;
-    }
-    //直接在数组data的末尾增加一个数
-    len++;
-    cin >> data[len];
-    t = 1;
-    while (t != 0)
-    {
-        if (data[right[t]] > data[len])
+        for (b = 0; b <= 1111; b++)
         {
-            right[len] = right[t];
-            right[t] = len;
-            break; //插入完成跳出循环
+            c = a + b;
+            if (fun(a) + fun(b) + fun(c) == m - 4)
+            {
+                t++;
+                printf("ex%d: %d+%d=%d\n", t, a, b, c);
+                sum++;
+            }
         }
-        t = right[t];
     }
-    //输出
-    t = 1;
-    while (t != 0)
-    {
-        printf("%d ", data[t]);
-        t = right[t];
-    }
+    printf("Total: %d", sum);
     return 0;
+}
+int fun(int x)
+{
+    int num = 0;
+    int f[10] = {6, 2, 5, 5, 4, 5, 6, 3, 7, 6};
+    while (x / 10 != 0)
+    {
+        num += f[x % 10];
+        x /= 10;
+    }
+    num += f[x];
+    return num;
 }
