@@ -1,37 +1,47 @@
 #include <iostream>
+#include <cstdio>
 using namespace std;
-void dfs(int step);
-int a[10], book[10], n, times = 0;
-//C语言的全局变量，未赋值前默认为0
+int x, y, p, q,mi=9999999;
+int m, n;
+int a[1000][1000];
+int book[1000][1000];
+void dfs(int x, int y, int step);
 int main()
 {
-    scanf("%d", &n);
-    dfs(1);
+    //行 列
+    cin >> m >> n;
+    for (int i = 1; i <= m; i++)
+        for (int j = 1; j <= n; j++)
+            cin >> a[i][j];
+    scanf("%d%d%d%d", &x, &y, &p, &q);
+    book[x][y]=1;
+    dfs(x,y,0);
+    printf("%d",mi);
     return 0;
 }
-void dfs(int step)
+void dfs(int x, int y, int step)
 {
-    int i, t = 0;
-    //到 n+1 盒子面前
-    if (step == n + 1 && a[1] * 100 + a[2] * 10 + a[3] + a[4] * 100 + a[5] * 10 + a[6] == a[7] * 100 + a[8] * 10 + a[9])
+    int e[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    int tx, ty;
+    if (x == p && y == q)
     {
-        times++;
-        printf("Ex-%d: %d%d%d + %d%d%d = %d%d%d\n", times, a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9]);
-        //返回之前的一步 ->最近一次调用dfs函数的地方
+        if (step < mi)
+            mi = step;
         return;
     }
-    //按照1、2、3...n的顺序尝试
-    for (i = 1; i <= n; i++)
+
+    for (int i = 0; i < 4; i++)
     {
-        //判断扑克牌i是否还在手中
-        if (book[i] == 0)
+        tx = x + e[i][0];
+        ty = y + e[i][1];
+
+        if (tx < 1 || tx > m || ty < 1 || ty > n)
+            continue;
+        if (a[tx][ty] == 0 && book[tx][ty] == 0)
         {
-            a[step] = i;
-            book[i] = 1;
-            //到下一个盒子面前
-            dfs(step + 1);
-            //将刚才尝试的扑克牌收回，才能进行下一次尝试
-            book[i] = 0;
+            book[tx][ty] = 1;
+            dfs(tx, ty, step + 1);
+            book[tx][ty] = 0;
         }
     }
     return;
